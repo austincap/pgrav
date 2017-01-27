@@ -1,0 +1,314 @@
+<html>
+<body>
+<canvas id="screen" width="640" height="480"/>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript">
+
+var screen = document.getElementById('screen');
+var graphics = screen.getContext('2d');
+//var particles = [];
+//Create 20 particles with the following properties
+// for (var i = 0; i < 20; ++i) {
+//     particles.push({
+//         x: screen.width * Math.random(),
+//         y: screen.height * Math.random(),
+//         xspeed: 0,
+//         yspeed: 0,
+//         xforce: 0,
+//         yforce: 0,
+//         charge: 0,
+//         mass: 2
+//     });
+// }
+
+
+
+
+var particles = [];
+
+particles.push({x: screen.width*Math.random(),y: screen.height*Math.random(),group:'#000000',masslist:[0.0, 0.0, 0.0, 0.16666666666666663, 0.0, -0.3, 0.0, 0.5, 0.0, 0.0, 0.0, 0.0, -0.5, -0.5]});particles.push({x: screen.width*Math.random(),y: screen.height*Math.random(),group:'#000000',masslist:[0.0, 0.0, 0.5, 0.0, 0.5, -0.5, -0.5, 0.0, 0.0, 0.0, 0.5, 0.5, 0.5, -0.5]});particles.push({x: screen.width*Math.random(),y: screen.height*Math.random(),group:'#000064',masslist:[0.0, 0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.5, 0.0, 0.0, 0.0, 0.0, 0.5]});particles.push({x: screen.width*Math.random(),y: screen.height*Math.random(),group:'#000064',masslist:[0.16666666666666663, 0.0, 0.0, 0.0, 0.0, 0.0, 0.5, 0.0, 0.0, 0.16666666666666663, 0.5, 0.5, 0.0, 0.0]});particles.push({x: screen.width*Math.random(),y: screen.height*Math.random(),group:'#000064',masslist:[0.0, 0.5, 0.0, 0.0, 0.0, 0.0, 0.5, 0.5, 0.0, 0.5, -0.5, 0.5, -0.5, -0.5]});particles.push({x: screen.width*Math.random(),y: screen.height*Math.random(),group:'#000064',masslist:[-0.3, -0.5, 0.0, 0.0, 0.0, 0.0, 0.5, -0.5, 0.0, 0.0, 0.5, 0.0, -0.5, 0.5]});particles.push({x: screen.width*Math.random(),y: screen.height*Math.random(),group:'#0000C8',masslist:[0.0, -0.5, 0.0, 0.5, 0.5, 0.5, 0.0, 0.0, 0.5, 0.0, 0.0, 0.5, 0.0, 0.0]});particles.push({x: screen.width*Math.random(),y: screen.height*Math.random(),group:'#0000C8',masslist:[0.5, 0.0, 0.0, 0.0, 0.5, -0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.5, 0.0]});particles.push({x: screen.width*Math.random(),y: screen.height*Math.random(),group:'#00012C',masslist:[0.0, 0.0, -0.5, 0.0, 0.0, 0.0, 0.5, 0.0, 0.0, 0.0, -0.16666666666666669, 0.0, 0.0, 0.0]});particles.push({x: screen.width*Math.random(),y: screen.height*Math.random(),group:'#00012C',masslist:[0.0, 0.0, 0.0, 0.16666666666666663, 0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.5, 0.0, 0.0]});particles.push({x: screen.width*Math.random(),y: screen.height*Math.random(),group:'#000190',masslist:[0.0, 0.5, 0.0, 0.5, -0.5, 0.5, 0.0, 0.0, -0.16666666666666669, 0.0, 0.0, 0.0, 0.5, 0.0]});particles.push({x: screen.width*Math.random(),y: screen.height*Math.random(),group:'#000190',masslist:[0.0, 0.5, 0.0, 0.5, 0.5, 0.0, 0.5, 0.0, 0.0, 0.5, 0.0, 0.0, -0.5, 0.5]});particles.push({x: screen.width*Math.random(),y: screen.height*Math.random(),group:'#0001F4',masslist:[-0.5, 0.5, 0.0, 0.0, -0.5, -0.5, 0.0, 0.5, 0.0, 0.0, 0.5, -0.5, 0.0, 0.0]});particles.push({x: screen.width*Math.random(),y: screen.height*Math.random(),group:'#0001F4',masslist:[-0.5, -0.5, 0.5, 0.0, -0.5, 0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.5, 0.0, 0.0]});
+
+// particles.push({
+//     x: screen.width*1/5,
+//     y: screen.height/2,
+//     group: 'red', 
+//     xspeed: 0,
+//     yspeed: 0,
+//     xforce: 0,
+//     yforce: 0,
+//     masslist: [1, 0, .4, .1, -.3]
+// });
+
+// particles.push({
+//     x: screen.width*2/5,
+//     y: screen.height/2,
+//     group: 'black',
+//     xspeed: 0,
+//     yspeed: 0,
+//     xforce: 0,
+//     yforce: 0,
+//     masslist: [0, 1, .1, .4, -.3]
+// });
+
+// particles.push({
+//     x: screen.width*5/5,
+//     y: screen.height/2,
+//     group: 'red',
+//     xspeed: 0,
+//     yspeed: 0,
+//     xforce: 0,
+//     yforce: 0,
+//     masslist: [.4, .1, 1, .1, -.3]
+// });
+
+// particles.push({
+//     x: screen.width*4/5,
+//     y: screen.height/2,
+//     group: 'black',
+//     xspeed: 0,
+//     yspeed: 0,
+//     xforce: 0,
+//     yforce: 0,
+//     masslist: [.1, .4, .1, 1, -.3]
+// });
+
+// particles.push({
+//     x: screen.width*3/5,
+//     y: screen.height/2,
+//     group: 'blue',
+//     xspeed: 0,
+//     yspeed: 0,
+//     xforce: 0,
+//     yforce: 0,
+//     masslist: [-.3, -.3, -.3, -.3, 1]
+// });
+
+
+
+
+setInterval(update, 1000/2); //60 frames per second
+
+function update() {
+    //resetforces(); //Set all forces to zero at the beginning of each frame
+    applyforces(); //Apply electrostatic forces between particles based on their charge and distance
+    // updateparticles(); //Update the velocities and positions of each particle
+    containparticles(); //Keep the particles inside the screen
+    requestAnimationFrame(draw); //Draw the particles
+}
+
+function applyforces() {
+    for (var i = 0; i < particles.length; ++i) { //For each particle
+        for (var j = i+1; j < particles.length; ++j){
+            var oldxi = particles[i].x;
+            if (particles[i].x > particles[j].x && particles[i].masslist[j] > 0){
+                particles[i].x = oldxi - 1*updateparticlex(particles[i], j);
+            }
+            else if(particles[i].x < particles[j].x && particles[i].masslist[j] > 0){
+                particles[i].x = oldxi + 1*updateparticlex(particles[i], j);
+            }
+            else if(particles[i].x < particles[j].x && particles[i].masslist[j] < 0){
+                particles[i].x = oldxi - 1*updateparticlex(particles[i], j);
+            }
+            else if(particles[i].x > particles[j].x && particles[i].masslist[j] < 0){
+                particles[i].x = oldxi + 1*updateparticlex(particles[i], j);
+            }
+            else{
+                particles[i].x = oldxi;
+            }
+        }
+        //console.log(particles[i].x);
+    }
+}
+
+
+function updateparticlex(particle1, particle2index) {
+    var x_moved = 0;
+    var dx = particle1.x-particles[particle2index].x;
+    var dxfraction = dx/screen.width;
+    //if particle1 is further left than particle2 and the particles have a positive affinity OR if particle1 is further right than particle2 and the particles have a negative affinity...use the regular affinity
+    console.log(particle1.masslist[particle2index]);
+
+    
+    if (particle1.masslist[particle2index] < 0){
+        x_moved = dxfraction*particle1.masslist[particle2index];
+    }
+    else {
+        x_moved = particle1.masslist[particle2index]/dxfraction;
+    }
+    return x_moved+Math.random();   
+}
+// Returns a random integer between min (included) and max (excluded)
+// Using Math.round() will give you a non-uniform distribution!
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
+
+function containparticles() {
+    for (var i = 0; i < particles.length; ++i) {
+        //If particle is to the left of the screen
+        if (particles[i].x < 0) {
+            //particles[i].x = 20; 
+            particles[i].x = 20+updateparticlex(particles[i], getRandomInt(0, particles.length-1));        
+        }
+        //If particle is to the right of the screen
+        if (particles[i].x > screen.width) {
+            //particles[i].x = screen.width-20;
+            particles[i].x = screen.width-20+updateparticlex(particles[i], getRandomInt(0, particles.length-1));              
+        }
+        // //If particle is above the scren
+        // if (particles[i].y < 0) {
+        //     //particles[i].y = 20;
+        //     particles[i].y = 20;   
+        // }
+        // //If particle is below the screen
+        // if (particles[i].y > screen.height) {
+        //     //particles[i].y = screen.height-20;
+        //     particles[i].y = screen.height-20;   
+        // }
+    }
+}
+
+// function updateparticle(particle1, particle2index) {
+//     var x_moved = 0;
+//     var forcex=0;
+//     var dx = particle1.x-particles[particle2index].x;
+//     x_moved = 1000*particle1.masslist[particle2index]/(dx*dx);
+//     console.log(x_moved);
+//     return x_moved;
+// }
+
+
+// function resetforces() {
+//     for (var i = 0; i < particles.length; ++i) {
+//         particles[i].xforce = 0;
+//         particles[i].yforce = 0;
+//     }
+// }
+
+
+// function applyforces() {
+//     for (var i = 0; i < particles.length; ++i) { //For each particle
+//     	var oldxi = particles[i].x;
+// 	    var oldyi = particles[i].y;
+//     	var forcextotal = 0;
+//     	var forceytotal = 0;
+//     	var forcetotal = 0;
+//     	for (var massi=0; massi < particles[i].masslist.length; ++massi) {
+//     		if (massi != i) {
+// 		        for (var j = i+1; j < particles.length; ++j) { //For each second particle (no repeats)
+
+// 		        	var force = 0;
+// 		        	var oldxj = particles[j].x;
+// 		        	var oldyj = particles[j].y;
+
+// 		            var dx = oldxj - oldxi;
+// 		            var dy = oldyj - oldyi;
+
+		            
+
+// 		        	var xforce = particles[i].masslist[massi]/(dx);
+// 		        	var yforce = particles[i].masslist[massi]/(dy);
+
+// 		        	forcextotal+=xforce;
+// 		        	forceytotal+=yforce;
+// 	        	}
+
+//         	}
+//         	else{ continue;}
+        
+
+//         particles[i].xforce = forcextotal;
+//         particles[i].yforce = forceytotal;
+
+// 		}
+
+// 		particles[i].x = oldxi + forcextotal*5;
+//         particles[i].y = oldyi + forceytotal*5;
+// 	}
+// }
+
+
+
+//         	var newx = oldx + forcextotal;
+
+//             // var force = -particles[i].charge * particles[j].charge / (distance * distance);
+//             var force = (particles[i].mass*particles[j].mass)/ (distance * distance);
+//             if (force > 1000) force = 1000; //Make sure the simulation doesn't explode
+//             //Find the horizontal and vertical components of the force
+//             // var xforce = force * (dx / distance);
+//             // var yforce = force * (dy / distance);
+//             var xforce = force * (dx / distance);
+//             var yforce = force * (dy / distance);
+//             //Apply forces to particles
+//             //Math.sqrt()
+//             particles[i].xforce = xforce;
+//             particles[i].yforce = yforce;
+//             particles[j].xforce = xforce;
+//             particles[j].yforce = yforce;
+//         }
+//     }
+// }
+
+// function updateparticles() {
+//     for (var i = 0; i < particles.length; ++i) {
+//     	for (var j=i+1; j <particles.length; ++j) {
+//             var dx = particles[j].x - particles[i].x;
+//             var dy = particles[j].y - particles[i].y;
+//             var distance = Math.sqrt(dx*dx + dy*dy);
+//         //Update particle velocities
+//         particles[i].xspeed -= (particles[i].xforce *distance/ particles[i].mass);
+//         particles[i].yspeed -= (particles[i].yforce *distance/ particles[i].mass);
+//         //Update particle positions
+//         particles[i].x += particles[i].xspeed;
+//         particles[i].y += particles[i].yspeed;
+//     }
+//     }
+// }
+
+// function containparticles() {
+//     for (var i = 0; i < particles.length; ++i) {
+//         //If particle is to the left of the screen
+//         if (particles[i].x < 0) {
+//             particles[i].x = 0;
+//             particles[i].xspeed = Math.abs(particles[i].xspeed)/5;
+            
+//         }
+//         //If particle is above the scren
+//         if (particles[i].y < 0) {
+//             particles[i].y = 0;
+//             particles[i].yspeed = Math.abs(particles[i].yspeed)/5;
+            
+//         }
+//         //If particle is to the right of the screen
+//         if (particles[i].x > screen.width) {
+//             particles[i].x = screen.width;
+//             particles[i].xspeed = -Math.abs(particles[i].xspeed)/5;
+            
+//         }
+//         //If particle is below the screen
+//         if (particles[i].y > screen.height) {
+//             particles[i].y = screen.height;
+//             particles[i].yspeed = -Math.abs(particles[i].yspeed)/5;
+            
+//         }
+//     }
+// }
+
+function draw() {
+    //Clear the screen for drawing
+    graphics.fillStyle = 'white';
+    graphics.fillRect(0, 0, screen.width, screen.height);
+    //Draw each particle as a black circles with radius 10
+
+    for (var i = 0; i < particles.length; ++i) {
+    	graphics.fillStyle = particles[i].group;
+        graphics.beginPath();
+        graphics.arc(particles[i].x, particles[i].y, 10, 0, 2 * Math.PI);
+        graphics.fill();
+    }
+}
+</script>
+
+</body>
+</html>
